@@ -6,7 +6,6 @@ import com.example.authservice.service.MyUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -56,8 +55,6 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
                                 .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/refresh-token").permitAll()
-                                .requestMatchers("/api/orders").authenticated()
-                                .requestMatchers(HttpMethod.POST,"/api/products").hasRole("ADMIN")
                                 .anyRequest().authenticated())
                 .authenticationProvider(daoAuthenticationProvider())
                 .sessionManagement(session ->

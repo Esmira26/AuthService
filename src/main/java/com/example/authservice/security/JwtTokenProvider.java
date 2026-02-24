@@ -1,5 +1,6 @@
 package com.example.authservice.security;
 
+import com.example.authservice.model.MyUserDetails;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -58,8 +59,14 @@ public class JwtTokenProvider {
 
     public String generateToken(UserDetails  userDetails){
         Map<String, Object> claims = new HashMap<>();
+
+        // YENİ LINES
+        claims.put("role", ((MyUserDetails)userDetails).getRole().name());   // UserDetails implementasiyanda role
+        claims.put("userId", ((MyUserDetails)userDetails).getId());   // userId
+
         return createToken(claims, userDetails.getUsername());
     }
+
 
     public String generateRefreshToken(UserDetails  userDetails){
         Map<String, Object> claims = new HashMap<>();
